@@ -1,8 +1,10 @@
-package com.phonebook.datamanager;
+package com.phonebook;
 
 import org.junit.Test;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+
+import com.phonebook.DataManager;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -18,7 +20,7 @@ public class DataManagerTest {
 	private static Object[] onePhoneSet;
 	
 	@BeforeClass
-	public static void setupDataManager() {
+	public static void setupDataManager() throws SQLException{
 		dataManager = new DataManager();
 		onePhoneSet = new Object[]{"Mum","80295853985"};
 	}
