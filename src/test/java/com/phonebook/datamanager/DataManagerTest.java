@@ -8,6 +8,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 
@@ -22,17 +23,29 @@ public class DataManagerTest {
 		onePhoneSet = new Object[]{"Mum","80295853985"};
 	}
 	
-	public Object[] dataManagerReturnSets() {
+	public Object[] setExamples() {
 		return new Object[]{
 			new Object[]{"Mum","80295853985"},
 			new Object[]{"Dad","+375299021710"},
 			new Object[]{"Gleb","+375296949195"}
 		};
 	}
+	
+	public Object[] nameExamples() {
+		return new Object[]{"Sanya","Anya"};
+	}
+	
     @Test
-    @Parameters(method="dataManagerReturnSets")
-    public void dataManagerTest(String name, String phoneNumber) throws SQLException {
+    @Parameters(method="setExamples")
+    public void getPhoneByNameTest(String name, String phoneNumber) throws SQLException {
     	assertEquals(phoneNumber, dataManager.getPhoneByName(name));
+    }
+    
+    @Test
+    @Parameters(method="nameExamples")
+    public void getNamesListTest(String name) throws SQLException {
+    	LinkedList<String> namesList = dataManager.getNamesList();
+    	assertTrue(namesList.contains(name));
     }
     
     @Test()
@@ -44,7 +57,7 @@ public class DataManagerTest {
     }
     
     @Test
-    public void dataManagerReturnNotNullTest() throws SQLException {
+    public void returnNotNullTest() throws SQLException {
         String answer = dataManager.getPhoneByName((String)onePhoneSet[0]);
         assertNotNull(answer);        
     }
