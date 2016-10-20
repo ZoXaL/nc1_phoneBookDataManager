@@ -16,13 +16,17 @@ import static org.junit.Assert.*;
 
 @RunWith(JUnitParamsRunner.class)
 public class DataManagerTest {
+	private final static String DBPATH = "jdbc:mysql://localhost/nc1_phoneBook";
+	private final static String USER_LOGIN = "nc1";
+	private final static String USER_PASSWORD = "nc1_phoneBook";
+	
 	private static DataManager dataManager;
-	private static Object[] onePhoneSet;
+	private static Object[] phoneSetExample;
 	
 	@BeforeClass
 	public static void setupDataManager() throws SQLException{
-		dataManager = new DataManager();
-		onePhoneSet = new Object[]{"Mum","80295853985"};
+		dataManager = new DataManager(DBPATH, USER_LOGIN, USER_PASSWORD);
+		phoneSetExample = new Object[]{"Mum","80295853985"};
 	}
 	
 	public Object[] setExamples() {
@@ -52,15 +56,15 @@ public class DataManagerTest {
     
     @Test()
     public void wrongKeyShouldReturnWrongValue() throws SQLException {
-    	String name = (String)onePhoneSet[0];
-    	String phoneNumber = (String)onePhoneSet[1];
+    	String name = (String)phoneSetExample[0];
+    	String phoneNumber = (String)phoneSetExample[1];
     	phoneNumber+="0";
     	assertNotEquals(phoneNumber, dataManager.getPhoneByName(name));
     }
     
     @Test
     public void returnNotNullTest() throws SQLException {
-        String answer = dataManager.getPhoneByName((String)onePhoneSet[0]);
+        String answer = dataManager.getPhoneByName((String)phoneSetExample[0]);
         assertNotNull(answer);        
     }
 
