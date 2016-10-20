@@ -1,2 +1,2 @@
 # nc1_phoneBookDataManager
-Simple database Manager for phoneBook app.
+Simple database manager for phoneBook app.
