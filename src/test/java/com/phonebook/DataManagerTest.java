@@ -42,13 +42,13 @@ public class DataManagerTest {
 	}
 	
     @Test
-    @Parameters(method="setExamples")
+    @Parameters(method = "setExamples")
     public void getPhoneByNameTest(String name, String phoneNumber) throws SQLException {
     	assertEquals(phoneNumber, dataManager.getPhoneByName(name));
     }
     
     @Test
-    @Parameters(method="nameExamples")
+    @Parameters(method = "nameExamples")
     public void getNamesListTest(String name) throws SQLException {
     	LinkedList<String> namesList = dataManager.getNamesList();
     	assertTrue(namesList.contains(name));
@@ -58,7 +58,7 @@ public class DataManagerTest {
     public void wrongKeyShouldReturnWrongValue() throws SQLException {
     	String name = (String)phoneSetExample[0];
     	String phoneNumber = (String)phoneSetExample[1];
-    	phoneNumber+="0";
+    	phoneNumber += "0";
     	assertNotEquals(phoneNumber, dataManager.getPhoneByName(name));
     }
     

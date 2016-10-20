@@ -3,6 +3,7 @@ package com.phonebook;
 import java.sql.*;
 import java.util.LinkedList;
 
+
 public class DataManager {
 	private Connection dbConnection;
 	private final String DBPATH; // = "jdbc:mysql://localhost/nc1_phoneBook";
@@ -25,12 +26,13 @@ public class DataManager {
 			statement.setString(1,name);
 			
 			ResultSet resultSet = statement.executeQuery();
-			while(resultSet.next()) {				
+			while (resultSet.next()) {				
 				phoneNumber = resultSet.getString(3);
 			}
+			
 			statement.close();
 			resultSet.close();
-		}catch(SQLException cause) {
+		} catch (SQLException cause) {
 			throw new SQLException("Data processing error", cause);
 		}
 		return phoneNumber;
@@ -47,31 +49,34 @@ public class DataManager {
 			while(resultSet.next()) {
 				names.add(resultSet.getString(2));
 			}
-		}catch(SQLException cause) {
+			
+			statement.close();
+			resultSet.close();
+		} catch (SQLException cause) {
 			throw new SQLException("Data processing error", cause);
 		}
 		return names;
 	}
 	
 	public void closeConnection() throws SQLException{
-		if(dbConnection!=null) {
+		if (dbConnection != null) {
 			try {
 				dbConnection.close();
-			}catch(SQLException cause) {			
+			} catch (SQLException cause) {			
 				throw new SQLException("Cannot close database connection", cause);
 			}
 		}		
 	}
 	public void openConnection() throws SQLException{
-		if(dbConnection==null) {					
+		if (dbConnection == null) {					
 			try {
 				Class.forName("org.gjt.mm.mysql.Driver");
 				try {
 					dbConnection = DriverManager.getConnection(DBPATH, USER_LOGIN, USER_PASSWORD);
-				}catch (SQLException cause) {
+				} catch (SQLException cause) {
 					throw new SQLException("Cannot get database connection", cause);
 				}
-			}catch(ClassNotFoundException cause) {
+			} catch (ClassNotFoundException cause) {
 				throw new SQLException("Cannot find MySQL jdbc driver", cause);
 			}
 		}
